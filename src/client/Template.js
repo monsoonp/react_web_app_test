@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 //import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 //import NotificationsIcon from '@material-ui/icons/Notifications';
-import MainDiagram from 'components/MainDiagram';
+import MainDiagram from 'components/MainDiagram_base';
 import SideBar from 'components/SideBar';
 
 function Copyright() {
@@ -129,7 +129,7 @@ function Template() {
     
     const classes = useStyles();
     //const {classes} = props;
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -139,11 +139,14 @@ function Template() {
     };
     const [checked, setChecked] = useState("tester");
     const check = (e) => {
+      /*
       if(checked === "tester"){
         setChecked("헬로");
       }else{
         setChecked("tester");
       }
+      */
+     setChecked(e);
     }
     useEffect(()=>{
         
@@ -154,11 +157,10 @@ function Template() {
     return (
         <div className={classes.root}>
             <CssBaseline />
+            
             {/*좌측 nav bar*/}
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-            
             </AppBar>
-            
             <Drawer
               variant="permanent"
               classes={{
@@ -205,7 +207,7 @@ function Template() {
               {/*<div className={classes.appBarSpacer} /> 상단 여백 - 상단 toolbar 용*/}
               {/*<div className={classes.preventer}/>*/}
               <Route path="/">
-                <MainDiagram test={checked}/>
+                <MainDiagram check={checked}/>
               </Route>
 
                     {/*

@@ -1,16 +1,9 @@
 import React from 'react';
 import {ListItem, ListItemIcon, ListItemText}  from '@material-ui/core/';
 import ListIcon from '@material-ui/icons/List';
-//import { withStyles } from '@material-ui/core/styles';
-//import Button from '@material-ui/core/Button';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-//import InboxIcon from '@material-ui/icons/MoveToInbox';
-//import DraftsIcon from '@material-ui/icons/Drafts';
-//import SendIcon from '@material-ui/icons/Send';
-
-
-
 
 
 export default function Menus(props) {
@@ -24,14 +17,15 @@ export default function Menus(props) {
     setAnchorEl(null);
   };
   
-  const testFunction = () => {
-    //props.check("헬로");
+  const testFunction = (e) => {
+    console.log(e);
+    props.check(e);
     handleClose();
   }
   return (
     <ListItem button name="changeTest">
       <ListItemIcon onClick={handleClick}>
-            <ListIcon />
+            <DashboardIcon />
       </ListItemIcon>
       <ListItemText>
         <div
@@ -41,7 +35,7 @@ export default function Menus(props) {
           color="primary"
           onClick={handleClick}
         >
-          Open Menu
+          Change Connect
         </div>
         <Menu
           id="customized-menu"
@@ -50,14 +44,14 @@ export default function Menus(props) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={testFunction}>
-            <ListItemText primary="Change Name"/>
+          <MenuItem onClick={(e) => (testFunction(e.target.innerText))}>
+            <ListItemText primary="node3"/>
           </MenuItem>
-          <MenuItem>
-            <ListItemText primary="Drafts" />
+          <MenuItem onClick={(e) => (testFunction(e.target.innerText))}>
+            <ListItemText primary="node4" />
           </MenuItem>
-          <MenuItem>
-            <ListItemText primary="Inbox" />
+          <MenuItem onClick={(e) => (testFunction(e.target.innerText))}>
+            <ListItemText primary="node5" />
           </MenuItem>
         </Menu>
       </ListItemText>

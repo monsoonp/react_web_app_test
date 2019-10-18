@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ListItem, ListItemIcon, ListItemText}  from '@material-ui/core/';
 //import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -8,7 +8,9 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 //import AssignmentIcon from '@material-ui/icons/Assignment';
 //import { NavLink } from 'react-router-dom';
+
 import Menus from 'pages/Menus';
+import Menus2 from 'pages/Menus2';
 
 const SideBar=(props)=> {
     /*
@@ -17,41 +19,41 @@ const SideBar=(props)=> {
     fontSize: '2rem'
     }
     */ 
+    
     useEffect(()=>{
 
-    return()=>{
+      return()=>{
 
-    }
+      }
     },[])
-
+    
     return(
         <div>
             <Menus check={props.check} />
             
-            <ListItem button>
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem button>
+            <Menus2 check={props.check} />
+
+            <ListItem button id="increment">
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
             <ListItemText primary="Orders" />
             </ListItem>
-            <ListItem button>
+
+            <ListItem button id="decrement">
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
             <ListItemText primary="Customers" />
             </ListItem>
+
             <ListItem button>
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
             <ListItemText primary="Reports" />
             </ListItem>
+
             <ListItem button>
             <ListItemIcon>
                 <LayersIcon />
