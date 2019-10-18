@@ -147,7 +147,7 @@ const MainDiagram = (props) =>{
             node.map(e => {
                 return(
                     setNodes(nodes.concat({
-                        id: e.id,
+                        id: e.id+"",
                         offsetY: (e.grade*200)+100,
                         offsetX: (e.locate*200)+100,
                         shape: (e.shape===null) ? {type:"Basic", shape:"Ellipse"} : e.shape,
