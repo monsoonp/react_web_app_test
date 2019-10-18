@@ -1,12 +1,17 @@
-import * as React from "react";
+import React, {useState, useEffect} from "react";
 //import * as ReactDOM from "react-dom";
-import { DiagramComponent, SnapConstraints, AnnotationConstraints, DiagramConstraints, NodeConstraints, ConnectorConstraints } from "@syncfusion/ej2-react-diagrams";
+import { DiagramComponent, SnapConstraints,NodeConstraints, ConnectorConstraints } from "@syncfusion/ej2-react-diagrams";// AnnotationConstraints, DiagramConstraints, 
 //import { HierarchicalTree, Inject, DataBinding } from "@syncfusion/ej2-react-diagrams";
 //import { DataManager } from "@syncfusion/ej2-data";
 
 const MainDiagram = (props) =>{
+    const [nodes, setNodes] = useState([]);
+    const [nodeList, setNodeList] = useState([]);
+    const [connectors, setConnectors] = useState([]);
+    const [connectorList, setConnectorList] = useState([]);
 
-    let nodes = [
+    /*
+    let nodess = [
         {
             id: "node1",
             offsetY: 50,
@@ -71,7 +76,9 @@ const MainDiagram = (props) =>{
             ]
         }
     ];
-    let connectors = [
+        
+    let connectorss = [
+        
         {
             id: "connector1",
             sourceID: "node1",
@@ -114,23 +121,77 @@ const MainDiagram = (props) =>{
         }
 
     ];
+    */
     const ChangeLine = (obj, node) => {
+        
         if(props.check){
-            if(obj && node){
-                return obj.sourceID !== node && obj.targetID !== node;
-            }else{
-                return true;
+            switch(props.check.choice){
+                case 'source':
+                    return obj.sourceID !== node;
+                case 'target':
+                    return obj.targetID !== node;
+                case 'both':
+                    return obj.sourceID !== node && obj.targetID !== node;
+                default :
+                    return true;
             }
-            //console.log(props.check);
         }
+        //console.log(props.check);
     }
     // Basic - Rectangle, Ellipse, Triangle, Plus, Star, Pentagon, Heptagon, Octagon, Trapezoid, Decagon, RightTriangle, Parallelogram
     // Flow -  Terminator, Process, Decision, Document, PredefinedProcess, PapeTape, DirectData, directData, Sort Multi-Document, Collate, SummingJunction, Or, 
     //          Internal Storage, Extarct, ManualOperation, Merge, Off-PageReference, SequentialAccessStrage, Data, Card
+    const bindNode = (node) => {
+        console.log(node);
+        if(node){
+            node.map(e => {
+                return(
+                    setNodes(nodes.concat({
+                        id: e.id,
+                        offsetY: (e.grade*200)+100,
+                        offsetX: (e.locate*200)+100,
+                        shape: (e.shape===null) ? {type:"Basic", shape:"Ellipse"} : e.shape,
+                        annotation: [
+                            { content: e.name }
+                        ]
+                    }))
+                );
+            })
+            setNodeList(nodes);
+        }
+    }
+    const bindConn = (conn) => {
+        console.log(conn);
+        /*
+        conn.map(e => {
+            return(
+                setConnectors(connectors.concat({
+                    id: e.id,
+                    sourceID: e.sourceID,
+                    targetId: e.targetID,
+                    annotations: [
+                        { text: e.role }
+                    ]
+                }))
+            );
+        })
+        */
+        setConnectorList(connectors);
+    }
+    useEffect(()=> {
+        //setNodeList(props.node);
+        console.log(props);
+        if(props.node && props.conn){
+            bindNode(props.node);
+            bindConn(props.conn);
+        
+        }
+    },[props.node, props.conn]);
     return(
-        <DiagramComponent id="diagram" width={"100%"} height={"100%"} nodes={nodes} connectors={connectors} 
+        <DiagramComponent id="diagram" width={"100%"} height={"100%"} nodes={nodeList} connectors={connectorList} 
             //pageSettings={{constraints: 'Infinity'}}
             getNodeDefaults={(node) => {    // node4_groupElement Dom 이름
+                /*
                 const role = {"tl": {shape:'Decision'}};
                 
                 if(node.role){
@@ -145,9 +206,10 @@ const MainDiagram = (props) =>{
                     };
                     
                 };
+                */
                 node.height = 50;
                 node.width = (node.shape.shape==='Ellipse')? 50 : 80;
-                node.offsetX = node.offsetX+200;
+                //node.offsetX = node.offsetX+200;
                 if(node.id === props.check){
                     node.style.fill = "skyblue";
                 }else{
@@ -162,12 +224,12 @@ const MainDiagram = (props) =>{
                 obj.targetDecorator.shape = 'None';   // 화살표 없애기
                 //console.log(obj.targetID);
                
-                if(ChangeLine(obj, props.check)){
+                if(ChangeLine(obj, props.check.checked)){
                     obj.style = {
                         strokeColor: 'red', // 선 색상
                         strokeWidth: 2,
                     };
-                    console.log("source: '%s', target: '%s'", obj.sourceID, obj.targetID);
+                    //console.log("source: '%s', target: '%s'", obj.sourceID, obj.targetID);
                 }else{
                     obj.style = {
                         strokeColor: 'blue', // 선 색상

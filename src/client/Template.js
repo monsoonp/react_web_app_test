@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Route } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, withStyles,   } from '@material-ui/core/styles';
-import {CssBaseline, Drawer, AppBar, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Link} from '@material-ui/core/';
+import {CssBaseline, Drawer, AppBar, List, Typography, Divider, IconButton, Link} from '@material-ui/core/';// Toolbar, Badge, Container, Grid,
 import {ListSubheader}  from '@material-ui/core/';
 //import ListIcon from '@material-ui/icons/List';
 //import Paper from '@material-ui/core/Paper';
@@ -14,16 +14,16 @@ import MainDiagram from 'components/MainDiagram_base';
 import SideBar from 'components/SideBar';
 
 function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" href="https://material-ui.com/">
+          Your Website
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
 }
 const styles  = theme => ({
     root: {
@@ -40,117 +40,132 @@ const styles  = theme => ({
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    margin: 0,
-    
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+    root: {
+      display: 'flex',
     },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flex: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
-  preventer: {
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    zIndex: 999,
-  }
+    toolbar: {
+      paddingRight: 24, // keep right padding when drawer closed
+    },
+    toolbarIcon: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: '0 8px',
+      ...theme.mixins.toolbar,
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      margin: 0,
+      
+    },
+    menuButtonHidden: {
+      display: 'none',
+    },
+    title: {
+      flexGrow: 1,
+    },
+    drawerPaper: {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerPaperClose: {
+      overflowX: 'hidden',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    },
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flex: 1,
+      height: '100vh',
+      overflow: 'auto',
+    },
+    container: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(4),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 240,
+    },
+    preventer: {
+      height: '100%',
+      width: '100%',
+      position: 'absolute',
+      zIndex: 999,
+    }
 }));
 
-function Template() {
+function Template(props) {
     
     const classes = useStyles();
     //const {classes} = props;
     const [open, setOpen] = useState(false);
-    
+    const [node, setNode] = useState([]);
+    const [conn, setConn] = useState([]);
+       
     const handleDrawerOpen = () => {
         setOpen(true);
     };
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const [checked, setChecked] = useState("tester");
+    const [checked, setChecked] = useState({});
     const check = (e) => {
-      /*
-      if(checked === "tester"){
-        setChecked("헬로");
-      }else{
-        setChecked("tester");
-      }
-      */
-     setChecked(e);
+        setChecked(e);
     }
+    const callNode = async() =>{
+        const response = await fetch('/diagram/node');
+        const body = await response.json();
+        return body;
+    }
+    const callConn = async() =>{
+        const response = await fetch('/diagram/connector');
+        const body = await response.json();
+        return body;
+    }
+    
     useEffect(()=>{
-        
-    },[])
+      if(!node.length){
+        callNode()
+          .then(res => setNode(res)) //setState
+          .catch(err => console.log(err));
+        callConn()
+          .then(res => setConn(res)) //setState
+          .catch(err => console.log(err));
+      }
+      //console.log(node);
+
+    },[node,conn]);
 
     //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -191,7 +206,7 @@ function Template() {
               <Divider />
               <List>
                 { open && <ListSubheader inset>Demo List</ListSubheader> }
-                <SideBar check={check}/>
+                <SideBar node={node} check={check}/>
               </List>
               
               {/*sub list*/}
@@ -204,7 +219,7 @@ function Template() {
               {/*<div className={classes.appBarSpacer} /> 상단 여백 - 상단 toolbar 용*/}
               {/*<div className={classes.preventer}/>*/}
               <Route path="/">
-                <MainDiagram check={checked}/>
+                <MainDiagram node={node} conn={conn} check={checked}/>
               </Route>
 
                     {/*

@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';//, useState
 import {ListItem, ListItemIcon, ListItemText}  from '@material-ui/core/';
 //import ListIcon from '@material-ui/icons/List';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+//import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
@@ -30,8 +30,8 @@ const SideBar=(props)=> {
     return(
         <div>
             <Menus check={props.check} />
-            
-            <Menus2 check={props.check} />
+             
+            <Menus2 node={props.node} check={props.check} />
 
             <ListItem button id="increment">
             <ListItemIcon>
