@@ -190,11 +190,8 @@ function Template() {
               {/*main list*/}
               <Divider />
               <List>
-                {open &&
-                  <ListSubheader inset>Demo List</ListSubheader>
-                }
+                { open && <ListSubheader inset>Demo List</ListSubheader> }
                 <SideBar check={check}/>
-               
               </List>
               
               {/*sub list*/}
