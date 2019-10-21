@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useMemo} from "react";
+import React, {useState, useEffect} from "react";
 //import * as ReactDOM from "react-dom";
-import { DiagramComponent, SnapConstraints,NodeConstraints, ConnectorConstraints } from "@syncfusion/ej2-react-diagrams";// AnnotationConstraints, DiagramConstraints, 
+//import { DiagramComponent, SnapConstraints,NodeConstraints, ConnectorConstraints } from "@syncfusion/ej2-react-diagrams";// AnnotationConstraints, DiagramConstraints, 
 //import { HierarchicalTree, Inject, DataBinding } from "@syncfusion/ej2-react-diagrams";
 //import { DataManager } from "@syncfusion/ej2-data";
 //import useDebounce from 'utils/useDebounce';
@@ -12,6 +12,7 @@ const MainDiagram = (props) =>{
     const [connectors, setConnectors] = useState([]);
     const [connectorList, setConnectorList] = useState([]);
     
+    /*
     const ChangeLine = (obj, node) => {
         if(props.check){
             switch(props.check.choice){
@@ -27,6 +28,7 @@ const MainDiagram = (props) =>{
         }
         //console.log(props.check);
     }
+    */
     // Basic - Rectangle, Ellipse, Triangle, Plus, Star, Pentagon, Heptagon, Octagon, Trapezoid, Decagon, RightTriangle, Parallelogram
     // Flow -  Terminator, Process, Decision, Document, PredefinedProcess, PapeTape, DirectData, directData, Sort Multi-Document, Collate, SummingJunction, Or, 
     //          Internal Storage, Extarct, ManualOperation, Merge, Off-PageReference, SequentialAccessStrage, Data, Card
@@ -76,13 +78,15 @@ const MainDiagram = (props) =>{
     useEffect(()=> {
         //setNodeList(props.node);
         //console.log(props);
+        
         if(!nodeList.length && !connectorList.length){
             bindNode(props.node);
             bindConn(props.conn);
         }
+    
             
         return () => {
-            
+            console.log("base unmount");
         }
         
     },[props]);

@@ -25,7 +25,7 @@ export default function Menus(props) {
   
   const checkNode = (e) => {
     //props.check(e);
-    setCheckedNode(e.charAt(e.length-1));
+    setCheckedNode(e.substring(4,e.length));
   }
   const checkDisCon = (e) => {
     //console.log("node: %s, choice: %s",checkedNode,e);

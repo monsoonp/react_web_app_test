@@ -1,4 +1,4 @@
-import React, {useLayoutEffect , useState} from "react";
+import React, {useLayoutEffect , useState, useMemo} from "react";
 //import * as ReactDOM from "react-dom";
 import { DiagramComponent, SnapConstraints,NodeConstraints, ConnectorConstraints } from "@syncfusion/ej2-react-diagrams";// AnnotationConstraints, DiagramConstraints, 
 //import { HierarchicalTree, Inject, DataBinding } from "@syncfusion/ej2-react-diagrams";
@@ -7,9 +7,9 @@ import { DiagramComponent, SnapConstraints,NodeConstraints, ConnectorConstraints
 
 const Diagram = (props) =>{
     const {check} = props;
-    const [change, setChange] = useState(props);
-    const ChangeLine = (obj, node) => {
-        console.log("node: %s",node);
+    //console.log(check);
+    const ChangeLine =(obj, node) => {
+        console.log(node);
         if(node){
             switch(node.choice){
                 case 'source':
@@ -28,19 +28,20 @@ const Diagram = (props) =>{
     // Basic - Rectangle, Ellipse, Triangle, Plus, Star, Pentagon, Heptagon, Octagon, Trapezoid, Decagon, RightTriangle, Parallelogram
     // Flow -  Terminator, Process, Decision, Document, PredefinedProcess, PapeTape, DirectData, directData, Sort Multi-Document, Collate, SummingJunction, Or, 
     //          Internal Storage, Extarct, ManualOperation, Merge, Off-PageReference, SequentialAccessStrage, Data, Card
-    
-    
+        
     useLayoutEffect (()=> {
         //setNodeList(props.node);
         console.log(props);
-        setChange(props);
+        
         return () => {
             console.log("diagram_unmount");
+            
         }
         
-    },[props]);
+    },[props, ]);
 
     return(
+    
         <DiagramComponent id="diagram" width={"100%"} height={"100%"} nodes={props.node} connectors={props.conn}
             //pageSettings={{constraints: 'Infinity'}}
             getNodeDefaults={(node) => {    // node4_groupElement Dom 이름
@@ -58,14 +59,14 @@ const Diagram = (props) =>{
                 }
                 node.constraints =  NodeConstraints.ReadOnly | NodeConstraints.InConnect | NodeConstraints.OutConnect;   // 노드
                 //node.annotations.constraints = AnnotationConstraints.ReadOnly;  // 노드 내부
-                //console.log(node);
+                console.log(node);
                 //return node;
             }} 
             getConnectorDefaults={(obj) => {
                 obj.type = "Orthogonal";
                 obj.targetDecorator.shape = 'None';   // 화살표 없애기
                 
-                if(ChangeLine(obj, props.check)){
+                if(ChangeLine(obj, check)){
                     obj.style = {
                         strokeColor: 'red', // 선 색상
                         strokeWidth: 2,
@@ -84,7 +85,7 @@ const Diagram = (props) =>{
                     { length: 200, direction: "Bottom" }
                 ]
                 */
-                //console.log(obj);
+                console.log(obj);
                 //return obj;
                
             }}
