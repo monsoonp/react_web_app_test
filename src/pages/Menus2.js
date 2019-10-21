@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ListItem, ListItemIcon, ListItemText}  from '@material-ui/core/';
-import ListIcon from '@material-ui/icons/List';
+//import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,10 +25,11 @@ export default function Menus(props) {
   
   const checkNode = (e) => {
     //props.check(e);
-    setCheckedNode(e);
+    setCheckedNode(e.charAt(e.length-1));
   }
   const checkDisCon = (e) => {
-    props.check({checked:checkedNode,choice:e});
+    //console.log("node: %s, choice: %s",checkedNode,e);
+    props.check({checked:checkedNode, choice:e});
     handleClose();
   }
 
@@ -66,7 +67,7 @@ export default function Menus(props) {
                       color="primary"
                       onClick={handleClick2}
                     >
-                      {node.name}
+                      {"node"+String(node.id)}
                     </div>
                     <Menu
                       id="customized-menu2"

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Route } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, withStyles,   } from '@material-ui/core/styles';
-import {CssBaseline, Drawer, AppBar, List, Typography, Divider, IconButton, Link} from '@material-ui/core/';// Toolbar, Badge, Container, Grid,
+import {CssBaseline, Drawer, AppBar, List,  Divider, IconButton} from '@material-ui/core/';// Toolbar, Badge, Container, Grid, Typography, Link
 import {ListSubheader}  from '@material-ui/core/';
 //import ListIcon from '@material-ui/icons/List';
 //import Paper from '@material-ui/core/Paper';
@@ -13,6 +13,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MainDiagram from 'components/MainDiagram_base';
 import SideBar from 'components/SideBar';
 
+/*
 function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -25,6 +26,7 @@ function Copyright() {
       </Typography>
     );
 }
+*/
 const styles  = theme => ({
     root: {
       flexGrow: 1,
@@ -132,7 +134,7 @@ function Template(props) {
     const [open, setOpen] = useState(false);
     const [node, setNode] = useState([]);
     const [conn, setConn] = useState([]);
-       
+    
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -153,7 +155,6 @@ function Template(props) {
         const body = await response.json();
         return body;
     }
-    
     useEffect(()=>{
       if(!node.length){
         callNode()
@@ -164,8 +165,10 @@ function Template(props) {
           .catch(err => console.log(err));
       }
       //console.log(node);
-
-    },[node,conn]);
+      return () => {
+        
+      }
+    },[node, conn]);
 
     //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
