@@ -37,28 +37,28 @@ const SideBar=(props)=> {
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
-            <ListItemText primary="Orders" />
+            <ListItemText primary="Demo" />
             </ListItem>
 
             <ListItem button id="decrement">
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Customers" />
+            <ListItemText primary="Demo" />
             </ListItem>
 
             <ListItem button>
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary="Reports" />
+            <ListItemText primary="Demo" />
             </ListItem>
 
             <ListItem button>
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
-            <ListItemText primary="Integrations" />
+            <ListItemText primary="Demo" />
             </ListItem>
             
         </div>

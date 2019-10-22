@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 //import * as ReactDOM from "react-dom";
 //import { DiagramComponent, SnapConstraints,NodeConstraints, ConnectorConstraints } from "@syncfusion/ej2-react-diagrams";// AnnotationConstraints, DiagramConstraints, 
 //import { HierarchicalTree, Inject, DataBinding } from "@syncfusion/ej2-react-diagrams";
@@ -8,27 +8,26 @@ import Diagram from 'pages/Diagram';
 
 const MainDiagram = (props) =>{
     const [nodes, setNodes] = useState([]);
-    const [nodeList, setNodeList] = useState([]);
+    //const [nodeList, setNodeList] = useState([]);
+    const nodeList = useMemo(()=> nodes,[nodes]);
     const [connectors, setConnectors] = useState([]);
-    const [connectorList, setConnectorList] = useState([]);
+    //const [connectorList, setConnectorList] = useState([]);
+    const connectorList = useMemo(() => connectors, [connectors]);
+    const change = useMemo(()=> props.check,[props.check]);
     
-    /*
     const ChangeLine = (obj, node) => {
-        if(props.check){
-            switch(props.check.choice){
-                case 'source':
-                    return obj.sourceID !== node;
-                case 'target':
-                    return obj.targetID !== node;
-                case 'both':
-                    return obj.sourceID !== node && obj.targetID !== node;
-                default :
-                    return true;
-            }
+        switch(props.check.choice){
+            case 'source':
+                return obj.sourceId !== node;
+            case 'target':
+                return obj.targetId !== node;
+            case 'both':
+                return obj.sourceId !== node && obj.targetId !== node;
+            default :
+                return true;
         }
-        //console.log(props.check);
     }
-    */
+    
     // Basic - Rectangle, Ellipse, Triangle, Plus, Star, Pentagon, Heptagon, Octagon, Trapezoid, Decagon, RightTriangle, Parallelogram
     // Flow -  Terminator, Process, Decision, Document, PredefinedProcess, PapeTape, DirectData, directData, Sort Multi-Document, Collate, SummingJunction, Or, 
     //          Internal Storage, Extarct, ManualOperation, Merge, Off-PageReference, SequentialAccessStrage, Data, Card
@@ -44,14 +43,19 @@ const MainDiagram = (props) =>{
                             annotations: [
                                 { content: "node"+String(e.id) }
                             ],
-                            grade: e.grade,
-                            locate: e.locate
+                            //grade: e.grade,
+                            //locate: e.locate
+                            offsetX : e.locate*120,
+                            offsetY : e.grade*120,
+                            style:{fill: (String(e.id)===props.check.checked)? "skyblue":"pink"},
+                            height: 50,
+                            width: e.shape===null? 50:80
                         }
 
                     )
                 })
             );
-            setNodeList(nodes);
+            //setNodeList(nodes);
         }
     }
     const bindConn = (conn) => {
@@ -64,7 +68,11 @@ const MainDiagram = (props) =>{
                             id: ("connector"+String(e.id)),
                             sourceID: e.sourceId,
                             targetID: e.targetId,
-                            role: e.role
+                            role: e.role,
+                            style: {
+                                strokeColor: ChangeLine(e,props.check.checked)?"red":"blue",
+                                strokeWidth: 2
+                            }
                             //annotations: [{ text: e.role }],
                             //labels: [{ text: e.role }],
                         }
@@ -72,80 +80,31 @@ const MainDiagram = (props) =>{
                 })
                 //conn.filter(e => {return( {id:String(e.id), sourceID: e.sourceId, targetID: e.targetId, role: e.role})})
             )
-            setConnectorList(connectors);            
+            //setConnectorList(connectors);            
+            console.log(connectorList);
         }
     }
+
     useEffect(()=> {
-        //setNodeList(props.node);
         //console.log(props);
-        
+        //setConnectors([]);
         if(!nodeList.length && !connectorList.length){
             bindNode(props.node);
             bindConn(props.conn);
+        }else if(change.choice){
+            //bindNode(props.node);
+            bindConn(props.conn);
         }
-    
-            
+       
         return () => {
             console.log("base unmount");
         }
         
-    },[props]);
+    },[props.conn,change]);
     
     return(
-        <Diagram node={nodeList} conn={connectors} check={props.check}/>
+        <Diagram node={nodeList} conn={connectorList} check={props.check}/>
     );
     
 }
 export default MainDiagram;
-/*
-<DiagramComponent id="diagram" width={"100%"} height={"100%"} nodes={nodeList} connectors={connectorList}
-    //pageSettings={{constraints: 'Infinity'}}
-    getNodeDefaults={(node) => {    // node4_groupElement Dom 이름
-        
-        node.offsetY = node.grade*120;
-        node.offsetX = node.locate*120;
-       
-        node.height = 50;
-        node.width = (node.shape.shape==='Ellipse')? 50 : 80;
-        //node.offsetX = node.offsetX+200;
-        if(node.id === props.check){
-            node.style.fill = "skyblue";
-        }else{
-            node.style.fill = "pink";
-        }
-        node.constraints =  NodeConstraints.ReadOnly | NodeConstraints.InConnect | NodeConstraints.OutConnect;   // 노드
-        //node.annotations.constraints = AnnotationConstraints.ReadOnly;  // 노드 내부
-        //console.log(node);
-        return node;
-    }} 
-    getConnectorDefaults={(obj) => {
-        obj.type = "Orthogonal";
-        obj.targetDecorator.shape = 'None';   // 화살표 없애기
-        
-        if(ChangeLine(obj, props.check.checked)){
-            obj.style = {
-                strokeColor: 'red', // 선 색상
-                strokeWidth: 2,
-            };
-            //console.log("source: '%s', target: '%s'", obj.sourceID, obj.targetID);
-        }else{
-            obj.style = {
-                strokeColor: 'blue', // 선 색상
-                strokeWidth: 2,
-            };
-        }
-        obj.constraints = ConnectorConstraints.ReadOnly;    // 커넥터
-       
-        console.log(obj);
-        return obj;
-       
-    }}
-    snapSettings = {
-        {constraints: SnapConstraints.SnapToLines}  //배경 지우기
-    }
-
-    //constraints = { DiagramConstraints.Zoom}    //줌만 가능
-/>
-    //DiagramConstraints
-    //ApiUpdate, Bridging, Default, LineRouting, None, PageEditable, Pan, PanX, PanY, Tooltip, UndoRedo, UserInteraction, Virtualization, Zoom, ZoomTextEdit
-*/

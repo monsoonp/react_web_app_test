@@ -7,7 +7,9 @@ import { DiagramComponent, SnapConstraints,NodeConstraints, ConnectorConstraints
 
 const Diagram = (props) =>{
     const {check} = props;
-    //console.log(check);
+    //const change = useMemo(()=> check,[check])
+    
+    /*
     const ChangeLine =(obj, node) => {
         console.log(node);
         if(node){
@@ -24,7 +26,8 @@ const Diagram = (props) =>{
         }
         //console.log(props.check);
     };
-    
+    */
+
     // Basic - Rectangle, Ellipse, Triangle, Plus, Star, Pentagon, Heptagon, Octagon, Trapezoid, Decagon, RightTriangle, Parallelogram
     // Flow -  Terminator, Process, Decision, Document, PredefinedProcess, PapeTape, DirectData, directData, Sort Multi-Document, Collate, SummingJunction, Or, 
     //          Internal Storage, Extarct, ManualOperation, Merge, Off-PageReference, SequentialAccessStrage, Data, Card
@@ -39,19 +42,20 @@ const Diagram = (props) =>{
         }
         
     },[props, ]);
-
+    
     return(
     
         <DiagramComponent id="diagram" width={"100%"} height={"100%"} nodes={props.node} connectors={props.conn}
             //pageSettings={{constraints: 'Infinity'}}
             getNodeDefaults={(node) => {    // node4_groupElement Dom 이름
-                
+                /*
                 node.offsetY = node.grade*120;
                 node.offsetX = node.locate*120;
                
                 node.height = 50;
                 node.width = (node.shape.shape==='Ellipse')? 50 : 80;
                 //node.offsetX = node.offsetX+200;
+                */
                 if(node.id === check.checked){
                     node.style.fill = "skyblue";
                 }else{
@@ -59,13 +63,13 @@ const Diagram = (props) =>{
                 }
                 node.constraints =  NodeConstraints.ReadOnly | NodeConstraints.InConnect | NodeConstraints.OutConnect;   // 노드
                 //node.annotations.constraints = AnnotationConstraints.ReadOnly;  // 노드 내부
-                console.log(node);
+                //console.log(node);
                 //return node;
             }} 
             getConnectorDefaults={(obj) => {
                 obj.type = "Orthogonal";
                 obj.targetDecorator.shape = 'None';   // 화살표 없애기
-                
+                /*
                 if(ChangeLine(obj, check)){
                     obj.style = {
                         strokeColor: 'red', // 선 색상
@@ -78,6 +82,7 @@ const Diagram = (props) =>{
                         strokeWidth: 2,
                     };
                 }
+                */
                 obj.constraints = ConnectorConstraints.ReadOnly;    // 커넥터
                 /*
                 segments: [
@@ -85,7 +90,7 @@ const Diagram = (props) =>{
                     { length: 200, direction: "Bottom" }
                 ]
                 */
-                console.log(obj);
+                //console.log(obj);
                 //return obj;
                
             }}

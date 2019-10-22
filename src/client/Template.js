@@ -156,7 +156,7 @@ function Template(props) {
         return body;
     }
     useEffect(()=>{
-      if(!node.length){
+      if(!node.length && !conn.length){
         callNode()
           .then(res => setNode(res)) //setState
           .catch(err => console.log(err));
